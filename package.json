@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify check.js -o bundle.js" 
+    "build": "browserify check-ip.js -o bundle.js"
   },
   "repository": {
     "type": "git",
