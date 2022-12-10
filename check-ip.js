@@ -1,4 +1,4 @@
-const { lookup } = require('dns');
+import lookup from 'dns';
 
 const getDNS = document.querySelector('.enter_dns');
 const showIP = document.querySelector('.show_ip');

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify check-ip.js -o bundle.js"
+    "build": "browserify check-ip.js -o bundle.js",
+    "type": "module"
   },
   "repository": {
     "type": "git",
@@ -19,10 +20,10 @@
   "homepage": "https://github.com/DanyAKing/check-dns-get-ip#readme",
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
+    "browserify": "^17.0.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "browserify": "^17.0.0"
+    "eslint-plugin-import": "^2.26.0"
   }
 }
