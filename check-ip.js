@@ -1,18 +1,19 @@
-import lookup from 'dns';
+const lookup = require('dns').promises;
 
 const getDNS = document.querySelector('.enter_dns');
 const showIP = document.querySelector('.show_ip');
 const btn = document.querySelector('.btn');
 const { value } = getDNS;
 
-const check = () => {
-  lookup(value, ((err, result) => {
-    if (err === null) {
-      showIP.innerText = result;
-    } else {
-      showIP.innerText = err.message;
-    }
-  }));
+const check = async () => {
+  try {
+    const data = await lookup(value);
+    showIP.innerText = data;
+  } catch (err) {
+    showIP.innerText = err.message;
+  }
 };
 
-btn.addEventListener('click', check());
+btn.addEventListener('click', () => {
+  check();
+});
