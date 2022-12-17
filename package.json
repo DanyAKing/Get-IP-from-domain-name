@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "webpack --mode production"
   },
@@ -14,7 +15,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/DanyAKing/check-dns-get-ip/issues"
   },

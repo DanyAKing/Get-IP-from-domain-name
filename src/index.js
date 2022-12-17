@@ -6,11 +6,5 @@
 import dnsToIP from "./module.js";
 
 const URL = 'www.wp.pl';
-const resultLooup = dnsToIP(URL);
-console.log(resultLooup);
 
-// const URL = value;
-
-// btn.addEventListener('click', () => {
-//   showIP.innerText = dnsToIP(URL);
-// });
+console.log(dnsToIP(URL));
