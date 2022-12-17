@@ -2,9 +2,10 @@
   "name": "check-ip-by-dns",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "private": true,
   "scripts": {
-    "build": "browserify check-ip.js -o bundle.js"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -13,17 +14,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/DanyAKing/check-dns-get-ip/issues"
   },
   "homepage": "https://github.com/DanyAKing/check-dns-get-ip#readme",
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "browserify": "^17.0.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "webpack": "^5.75.0"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
