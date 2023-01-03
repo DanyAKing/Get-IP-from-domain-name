@@ -1,5 +1,7 @@
-import dnsToIP from "./module.js";
+const { dnsToIP } = require('./module');
 
-const URL = 'www.wp.pl';
+const URL = 'www.npm.com';
 
-console.log(dnsToIP(URL));
+const response = console.log(dnsToIP(URL));
+
+module.exports = { response };

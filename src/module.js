@@ -1,6 +1,6 @@
-import { lookup } from 'dns/promises';
+const { lookup } = require('dns').promises;
 
-export default async function dnsToIP(url) {
+async function dnsToIP(url) {
   try {
     const data = await lookup(url);
     console.log(`Address IP domain ${url} -> ${data.address}, family address -> IP${data.family}`);
@@ -10,3 +10,5 @@ export default async function dnsToIP(url) {
     return error;
   }
 }
+
+module.exports = { dnsToIP };
