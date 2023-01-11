@@ -1,6 +1,6 @@
 const { lookup } = require('dns').promises;
 
-async function dnsToIP(url) {
+async function checkIp(url) {
   try {
     const data = await lookup(url);
     console.log(`Address IP domain ${url} -> ${data.address}, family address -> IP${data.family}`);
@@ -11,4 +11,4 @@ async function dnsToIP(url) {
   }
 }
 
-module.exports = { dnsToIP };
+module.exports = { checkIp };
