@@ -1,3 +1,7 @@
+* {
+  font-family: 'Courier New', Courier, monospace;
+}
+
 body {
   height: 100vh;
   width: 100%;
@@ -6,7 +10,6 @@ body {
 }
 
 .content {
-  font-family: 'Courier New', Courier, monospace;
   color: black;
   height: 100%;
   display: flex;
@@ -14,5 +17,3 @@ body {
   align-items: center;
   flex-direction: column;
 }
-
-
