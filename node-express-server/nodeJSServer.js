@@ -3,7 +3,12 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Server NodeJS Express')
+  res.send('Welcome in web server NodeJS Express');
+});
+
+app.post('/history', (req, res) => {
+  console.log(req.body);
+  res.status(200).end();
 });
 
 app.listen(3000, '127.0.0.1', () => {
