@@ -12,17 +12,17 @@ class Storage {
   updateArray(element) {
     this.history.push(element);
   }
-}
 
-const sendItemToBackend = item => {
-  fetch('http://127.0.0.1:3000/history', {
-    method: 'POST',
-    body: JSON.stringify(item),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-};
+  sendItemToBackend() {
+    fetch('http://127.0.0.1:3000/history', {
+      method: 'POST',
+      body: JSON.stringify(this.history),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
 
 let history = JSON.parse(localStorage.getItem('history'));
 if (history === null) {
@@ -45,7 +45,7 @@ btn.addEventListener('click', () => {
   listItem.innerText = storage.history;
   resultList.appendChild(listItem);
 
-  sendItemToBackend(storage.history);
+  storage.sendItemToBackend();
 });
 
 // const clrearBtn = document.createElement('button');
