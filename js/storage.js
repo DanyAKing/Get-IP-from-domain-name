@@ -1,28 +1,52 @@
-// const { createHistoryList, createClsHistoryBtn } = require('./elements-creator');
+// const { createHistoryList } = require('./elements-creator');
 
 const btn = document.querySelector('.btn');
 const data = document.querySelector('.enter_dns');
 const resultList = document.querySelector('.result_list');
 
-const storage = {
-  history: [],
-};
+class Storage {
+  constructor(item) {
+    this.history = item;
+  }
 
-const updateArray = element => {
-  storage.history.push(element);
-};
+  updateArray(element) {
+    this.history.push(element);
+  }
+}
 
 const sendItemToBackend = item => {
   fetch('http://127.0.0.1:3000/history', {
     method: 'POST',
-    body: item,
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 };
 
-const history = JSON.parse(localStorage.getItem('history'));
+let history = JSON.parse(localStorage.getItem('history'));
+if (history === null) {
+  history = [];
+} else {
+  history;
+}
+const storage = new Storage(history);
+
 const listItem = document.createElement('p');
 listItem.innerText = history;
 resultList.appendChild(listItem);
+
+btn.addEventListener('click', () => {
+  if (data.value !== '') {
+    storage.updateArray(data.value);
+  }
+  localStorage.setItem('history', JSON.stringify(storage.history));
+
+  listItem.innerText = storage.history;
+  resultList.appendChild(listItem);
+
+  sendItemToBackend(storage.history);
+});
 
 // const clrearBtn = document.createElement('button');
 // clrearBtn.classList = 'cls_btn';
@@ -31,22 +55,8 @@ resultList.appendChild(listItem);
 // resultList.appendChild(clrearBtn);
 // const clsBtn = document.querySelector('.cls_btn');
 
-btn.addEventListener('click', () => {
-  if (data.value !== '') {
-    if (history !== null) {
-      updateArray(history);
-    }
-    updateArray(data.value);
-    localStorage.setItem('history', JSON.stringify(storage.history));
-  }
-  listItem.innerText = JSON.parse(localStorage.getItem('history'));
-  resultList.appendChild(listItem);
-
-  sendItemToBackend();
-});
-
 // clsBtn.addEventListener('click', () => {
-//   localStorage.clear();
-//   resultList.removeChild(clrearBtn);
-//   resultList.removeChild(listItem);
-// });
+//     localStorage.clear();
+//     resultList.removeChild(clrearBtn);
+//     resultList.removeChild(listItem);
+//   });
