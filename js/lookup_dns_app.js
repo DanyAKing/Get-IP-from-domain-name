@@ -1,14 +1,17 @@
 const { lookup } = require('dns').promises;
 
-async function checkIp(url) {
+async function checkDomain(url) {
   try {
     const data = await lookup(url);
-    console.log(`Address IP domain ${url} -> ${data.address}, family address -> IP${data.family}`);
-    return data;
+    const obj = {
+      address: data.address,
+      family: data.family,
+    };
+    return obj;
   } catch (error) {
     error.code === 'ENOTFOUND' ? console.log(`Domain not found -> ${error.hostname}`) : error.message;
     return error;
   }
 }
 
-module.exports = { checkIp };
+module.exports = { checkDomain };
