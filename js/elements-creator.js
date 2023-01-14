@@ -12,4 +12,4 @@ function createClsHistoryBtn(target) {
   target.appendChild(clsBtn);
 }
 
-module.exports = { createHistoryList, createClsHistoryBtn };
+module.exports = { createHistoryList };
