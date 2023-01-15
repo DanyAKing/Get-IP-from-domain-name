@@ -3,7 +3,7 @@ const cors = require('cors');
 // const { checkDomain } = require('../js/lookup_dns_app');
 
 const app = express();
-let history = [];
+let list = [];
 
 app.use(cors());
 app.use(express.json());
@@ -13,14 +13,14 @@ app.get('/', (req, res) => {
 });
 
 app.post('/history', (req, res) => {
-  history = [];
-  history.push(...req.body);
-  console.log(history);
+  list = [];
+  list.push(...req.body);
+  console.log(list);
   res.status(200).end();
 });
 
 app.get('/history', (req, res) => {
-  res.json(history);
+  res.json(list);
 });
 
 app.listen(3000, () => {

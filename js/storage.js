@@ -3,62 +3,48 @@ const data = document.querySelector('.enter_dns');
 const resultList = document.querySelector('.result_list');
 
 class Storage {
-  constructor(item) {
-    this.history = item;
+  constructor() {
+    this.list = [];
   }
 
   updateArray(element) {
-    this.history.push(element);
+    this.list.push(element);
   }
 
   sendItemToBackend() {
     fetch('http://127.0.0.1:3000/history', {
       method: 'POST',
-      body: JSON.stringify(this.history),
+      body: JSON.stringify(this.list),
       headers: {
         'Content-Type': 'application/json',
       },
     });
   }
+
+  getItemsFromBackend() {
+    fetch('http://127.0.0.1:3000/history')
+      .then(response => response.json())
+      .then(list => list.forEach(el => {
+        this.list.push(el);
+      }));
+  }
 }
 
-function getItemsFromBackend() {
-  fetch('http://127.0.0.1:3000/history')
-    .then(response => response.json())
-    .then(history => history.forEach(el => {
-      history.push(el);
-    }));
-}
-
-// let history = JSON.parse(localStorage.getItem('history'));
-// if (history === null) {
-//   history = [];
-// } else {
-//   history;
-// }
-
-// getItemsFromBackend()
-//   .then({ history } => {
-//     history.forEach(element => {
-//       historyFromBackend.push(element);
-//     });
-//   });
-
-const history = [];
-getItemsFromBackend();
-const storage = new Storage(history);
+const storage = new Storage();
+storage.getItemsFromBackend();
 
 const listItem = document.createElement('p');
-listItem.innerText = storage.history;
-resultList.appendChild(listItem);
+setTimeout(() => {
+  listItem.innerText = storage.list;
+  resultList.appendChild(listItem);
+}, 200);
 
 btn.addEventListener('click', () => {
   if (data.value !== '' /*&& data.value !== storage.history[storage.history.length - 1]*/) {
     storage.updateArray(data.value);
   }
-  // localStorage.setItem('history', JSON.stringify(storage.history));
 
-  listItem.innerText = storage.history;
+  listItem.innerText = storage.list;
   resultList.appendChild(listItem);
 
   storage.sendItemToBackend();
