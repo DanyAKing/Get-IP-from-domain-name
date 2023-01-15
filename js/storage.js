@@ -1,5 +1,3 @@
-// const { createHistoryList } = require('./elements-creator');
-
 const btn = document.querySelector('.btn');
 const data = document.querySelector('.enter_dns');
 const resultList = document.querySelector('.result_list');
@@ -24,23 +22,41 @@ class Storage {
   }
 }
 
-let history = JSON.parse(localStorage.getItem('history'));
-if (history === null) {
-  history = [];
-} else {
-  history;
+function getItemsFromBackend() {
+  fetch('http://127.0.0.1:3000/history')
+    .then(response => response.json())
+    .then(history => history.forEach(el => {
+      history.push(el);
+    }));
 }
+
+// let history = JSON.parse(localStorage.getItem('history'));
+// if (history === null) {
+//   history = [];
+// } else {
+//   history;
+// }
+
+// getItemsFromBackend()
+//   .then({ history } => {
+//     history.forEach(element => {
+//       historyFromBackend.push(element);
+//     });
+//   });
+
+const history = [];
+getItemsFromBackend();
 const storage = new Storage(history);
 
 const listItem = document.createElement('p');
-listItem.innerText = history;
+listItem.innerText = storage.history;
 resultList.appendChild(listItem);
 
 btn.addEventListener('click', () => {
-  if (data.value !== '') {
+  if (data.value !== '' /*&& data.value !== storage.history[storage.history.length - 1]*/) {
     storage.updateArray(data.value);
   }
-  localStorage.setItem('history', JSON.stringify(storage.history));
+  // localStorage.setItem('history', JSON.stringify(storage.history));
 
   listItem.innerText = storage.history;
   resultList.appendChild(listItem);
