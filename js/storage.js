@@ -12,6 +12,13 @@ class Storage {
     this.list.push(element);
   }
 
+  filterList(element) {
+    if (this.list.includes(element)) {
+      return false;
+    }
+    return true;
+  }
+
   sendItemToBackend() {
     fetch('http://127.0.0.1:3000/history', {
       method: 'POST',
@@ -37,7 +44,7 @@ const storage = new Storage();
 getItemsFromBackend(storage.list);
 
 btn.addEventListener('click', () => {
-  if (data.value !== '' /*&& data.value !== storage.history[storage.history.length - 1]*/) {
+  if (data.value !== '' && storage.filterList(data.value)) {
     storage.updateArray(data.value);
   }
   listItem.innerText = storage.list;
