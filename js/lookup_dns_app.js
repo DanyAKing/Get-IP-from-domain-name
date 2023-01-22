@@ -10,8 +10,18 @@ async function checkDomain(url, target) {
     const item = target.push(obj);
     return item;
   } catch (error) {
-    error.code === 'ENOTFOUND' ? console.log(`Domain not found -> ${error.hostname}`) : error.message;
-    return error;
+    if (error.code === 'ENOTFOUND') {
+      const obj = {
+        error: `Domain not found -> ${error.hostname}`,
+      };
+      const item = target.push(obj);
+      return item;
+    }
+    const obj = {
+      error: error.message,
+    };
+    const item = target.push(obj);
+    return item;
   }
 }
 

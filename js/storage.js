@@ -1,11 +1,14 @@
 const btn = document.querySelector('.btn');
 const data = document.querySelector('.enter_dns');
 const resultList = document.querySelector('.result_list');
-const listItem = document.createElement('p');
+const list = document.createElement('p');
+// const ul = document.querySelector('.list');
+// const li = document.createElement('li');
 
 class Storage {
   constructor() {
     this.list = [];
+    this.dataForList = [];
   }
 
   updateArray(element) {
@@ -30,25 +33,36 @@ class Storage {
   }
 }
 
-async function getItemsFromBackend(target) {
+async function getListFromBackend(target) {
   const response = await fetch('http://127.0.0.1:3000/history');
   const data = await response.json();
   data.forEach(el => {
     target.push(el);
   });
-  listItem.innerText = target;
-  resultList.appendChild(listItem);
+
+  list.innerText = target;
+  resultList.appendChild(list);
+}
+
+async function getDataForListFromBackend(target) {
+  const response = await fetch('http://127.0.0.1:3000/data');
+  const data = await response.json();
+  data.forEach(el => {
+    target.push(el);
+  });
 }
 
 const storage = new Storage();
-getItemsFromBackend(storage.list);
+getListFromBackend(storage.list);
+getDataForListFromBackend(storage.dataForList);
 
 btn.addEventListener('click', () => {
   if (data.value !== '' && storage.filterList(data.value)) {
     storage.updateArray(data.value);
   }
-  listItem.innerText = storage.list;
-  resultList.appendChild(listItem);
+
+  list.innerText = storage.list;
+  resultList.appendChild(list);
 
   storage.sendItemToBackend();
 });
