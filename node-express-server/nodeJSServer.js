@@ -3,8 +3,9 @@ const cors = require('cors');
 const { checkDomain } = require('../js/lookup_dns_app');
 
 const app = express();
+
 let list = [];
-// let dataForList = [];
+let dataForList = [];
 
 app.use(cors());
 app.use(express.json());
@@ -15,21 +16,23 @@ app.get('/', (req, res) => {
 
 app.post('/history', (req, res) => {
   list = [];
-  // dataForList = [];
+  dataForList = [];
   list.push(...req.body);
-  console.log(list);
-  // list.forEach(el => {
-  //   const data = checkDomain(el);
-  //   dataForList.push(data);
-  // });
-  // setTimeout(() => {
-  //   console.log(dataForList);
-  // }, 1000);
+  list.forEach(el => {
+    checkDomain(el, dataForList);
+  });
+  setTimeout(() => {
+    console.log(dataForList);
+  }, 100);
   res.status(200).end();
 });
 
 app.get('/history', (req, res) => {
   res.json(list);
+});
+
+app.get('/data', (req, res) => {
+  res.json(dataForList);
 });
 
 app.listen(3000, () => {
