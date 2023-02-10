@@ -1,9 +1,7 @@
 const btn = document.querySelector('.btn');
-const data = document.querySelector('.enter_dns');
+const dns = document.querySelector('.enter');
 const resultList = document.querySelector('.result_list');
 const list = document.createElement('p');
-// const ul = document.querySelector('.list');
-// const li = document.createElement('li');
 
 class Storage {
   constructor() {
@@ -52,30 +50,16 @@ async function getDataForListFromBackend(target) {
   });
 }
 
-const storage = new Storage();
-getListFromBackend(storage.list);
-getDataForListFromBackend(storage.dataForList);
-
-btn.addEventListener('click', () => {
-  if (data.value !== '' && storage.filterList(data.value)) {
-    storage.updateArray(data.value);
-  }
-
-  list.innerText = storage.list;
-  resultList.appendChild(list);
-
-  storage.sendItemToBackend();
+btn.addEventListener('click', async () => {
+  await fetch('http://127.0.0.1:3000/send', {
+    method: 'POST',
+    body: JSON.stringify({ data: dns.value }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+    .then(data => {
+      resultList.innerText = data;
+    });
 });
-
-// const clrearBtn = document.createElement('button');
-// clrearBtn.classList = 'cls_btn';
-// clrearBtn.setAttribute('type', 'button');
-// clrearBtn.innerText = 'Clear history';
-// resultList.appendChild(clrearBtn);
-// const clsBtn = document.querySelector('.cls_btn');
-
-// clsBtn.addEventListener('click', () => {
-//     localStorage.clear();
-//     resultList.removeChild(clrearBtn);
-//     resultList.removeChild(listItem);
-//   });

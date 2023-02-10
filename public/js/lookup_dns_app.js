@@ -7,22 +7,20 @@ async function checkDomain(url, target) {
       address: data.address,
       family: data.family,
     };
-    const item = target.push(obj);
-    return item;
+    target.push(obj);
   } catch (error) {
     if (error.code === 'ENOTFOUND') {
       const obj = {
         error: `Domain not found -> ${error.hostname}`,
       };
-      const item = target.push(obj);
-      return item;
+      target.push(obj);
     }
     const obj = {
       error: error.message,
     };
-    const item = target.push(obj);
-    return item;
+    target.push(obj);
   }
+  return target;
 }
 
 module.exports = { checkDomain };
