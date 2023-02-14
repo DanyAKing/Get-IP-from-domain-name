@@ -1,26 +1,26 @@
 const { lookup } = require('dns').promises;
 
-async function checkDomain(url, target) {
+async function checkDomain(url) {
   try {
     const data = await lookup(url);
     const obj = {
+      url,
       address: data.address,
       family: data.family,
     };
-    target.push(obj);
+    return obj;
   } catch (error) {
     if (error.code === 'ENOTFOUND') {
       const obj = {
         error: `Domain not found -> ${error.hostname}`,
       };
-      target.push(obj);
+      return obj;
     }
     const obj = {
       error: error.message,
     };
-    target.push(obj);
+    return obj;
   }
-  return target;
 }
 
 module.exports = { checkDomain };

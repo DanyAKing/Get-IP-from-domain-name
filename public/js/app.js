@@ -57,9 +57,9 @@ btn.addEventListener('click', async () => {
     headers: {
       'Content-Type': 'application/json',
     },
-  })
-    .then(res => res.json())
-    .then(data => {
-      resultList.innerText = data;
-    });
+  });
+    // .then(res => res.json())
+    // .then(data => {
+    //   const {  } = data;
+    // });
 });
